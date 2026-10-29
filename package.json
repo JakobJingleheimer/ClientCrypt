@@ -1,0 +1,34 @@
+{
+  "name": "ClientCrypt",
+  "version": "0.0.0",
+  "description": "Secure, offline client-side encryption demo",
+  "keywords": [
+    "browser",
+    "encryption",
+    "offline",
+    "pwa"
+  ],
+  "homepage": "https://github.com/JakobJingleheimer/ClientCrypt#readme",
+  "bugs": {
+    "url": "https://github.com/JakobJingleheimer/ClientCrypt/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JakobJingleheimer/ClientCrypt.git"
+  },
+  "license": "CC-BY-NC-4.0",
+  "author": "JakobJingleheimer",
+  "type": "module",
+  "main": "src/index.html",
+  "scripts": {
+    "start": "http-server ./src -S",
+    "test": "node --test './src/**/*.spec.ts'"
+  },
+  "dependencies": {
+    "idb": "^8.0.4",
+    "kelpui": "^1.17.2"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
