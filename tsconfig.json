@@ -1,0 +1,39 @@
+{
+  // Visit https://aka.ms/tsconfig to read more about this file
+  "compilerOptions": {
+    "lib": [
+      "esnext",
+    ],
+
+    "module": "nodenext",
+    "target": "esnext",
+    "emitDeclarationOnly": true,
+
+    "allowArbitraryExtensions": true,
+    "allowImportingTsExtensions": true,
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "erasableSyntaxOnly": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "skipLibCheck": true,
+    "strict": true,
+    "verbatimModuleSyntax": true,
+
+    // Other Outputs
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+
+    // Stricter Typechecking Options
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+  },
+  "include": [],
+  "references": [
+    { "path": "./build" },
+    { "path": "./src/app" },
+    { "path": "./src/sw" },
+    { "path": "./src/webmanifest" },
+  ]
+}

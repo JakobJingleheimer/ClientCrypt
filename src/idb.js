@@ -1,1 +1,0 @@
-../node_modules/idb/build/index.js

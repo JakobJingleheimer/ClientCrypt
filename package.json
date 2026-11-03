@@ -21,14 +21,31 @@
   "type": "module",
   "main": "src/index.html",
   "scripts": {
-    "start": "http-server ./src -S",
-    "test": "node --test './src/**/*.spec.ts'"
+    "build": "rm -rf ./dist && node ./build/prod.ts",
+    "build:prod": "NODE_ENV=production node --run build",
+    "dev": "NODE_ENV=development PORT=8443 rm -rf ./dist && node ./build/dev.ts",
+    "start": "node --run build && node --run serve",
+    "start:prod": "node --run build:prod && node --run serve",
+    "serve": "PORT=8443 http-server -S -C ./cert.pem -K key.pem ./dist",
+    "test:ui": "node --experimental-config-file=./node.config.test.json --import './test/dom.setup.ts' --test",
+    "test:uis": "node --run test:ui -- './src/**/*.test.ts'",
+    "test:vanilla": "rm -f ./test/.storage && touch ./test/.storage; node --experimental-config-file=./node.config.test.json --test",
+    "test:vanillas": "node --run test:vanilla -- './build/**/*.spec.ts' './src/**/*.spec.ts'",
+    "types:check": "tsc --build --noEmit"
   },
   "dependencies": {
     "idb": "^8.0.4",
-    "kelpui": "^1.17.2"
+    "kelpui": "^1.17.2",
+    "preact": "^11.1.0",
+    "preact-iso": "^2.12.2",
+    "react": "npm:@preact/compat",
+    "react-dom": "npm:@preact/compat"
   },
   "devDependencies": {
-    "http-server": "^14.1.1"
+    "@types/node": "^26.6.6",
+    "esbuild": "^0.28.2",
+    "http-server": "^14.1.1",
+    "mime-types": "^3.0.2",
+    "typescript": "^7.0.2"
   }
 }

@@ -1,4 +1,4 @@
-import { openDB } from './idb.js';
+import { openDB } from 'idb';
 
 
 export const decoder = new TextDecoder();
@@ -9,7 +9,7 @@ export const challenge = crypto.getRandomValues(new Uint32Array(32));
 export const salt = encoder.encode('test.v1');
 
 export const b64 = {
-	from: (str) => Uint8Array.from(
+	from: (str: string) => Uint8Array.from(
 		atob(
 			str
 				.replace(/-/g, '+')
@@ -17,7 +17,7 @@ export const b64 = {
 		),
 		(c) => c.charCodeAt(0),
 	),
-	to: (buf) => btoa(
+	to: (buf: Uint8Array<ArrayBuffer>) => btoa(
 		String.fromCharCode(...new Uint8Array(buf))
 			.replace(/\+/g,'-')
 			.replace(/\//g, '_')
@@ -25,7 +25,7 @@ export const b64 = {
 	),
 };
 
-export const decrypt = async (key, data, iv) => {
+export const decrypt = async <Output>(key: CryptoKey, data: BufferSource, iv: AesGcmParams['iv']) => {
 	const decrypted = await crypto.subtle.decrypt(
 		{ name: 'AES-GCM', iv },
 		key,
@@ -35,10 +35,10 @@ export const decrypt = async (key, data, iv) => {
 	let output = decoder.decode(decrypted);
 	try { output = JSON.parse(output) } catch {}
 
-	return output;
+	return output as Output;
 };
 
-export const encrypt = async (key, data) => {
+export const encrypt = async (key: CryptoKey, data: any) => {
 	const iv = crypto.getRandomValues(new Uint8Array(12));
 
 	const input = encoder.encode(
